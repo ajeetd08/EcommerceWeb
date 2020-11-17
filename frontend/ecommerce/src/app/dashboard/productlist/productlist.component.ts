@@ -20,11 +20,11 @@ export class ProductlistComponent implements OnInit {
   }
 
   addItemToCart(item) {
-    this.productsService.addToCart(item.id);
+    this.productsService.addToCart(item._id);
   }
 
   itemInCart(item) {
-    return this.productsService.findItemInCart(item.id);
+    return this.productsService.findItemInCart(item._id);
   }
 
 }

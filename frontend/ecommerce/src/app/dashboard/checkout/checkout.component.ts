@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +22,7 @@ export class CheckoutComponent implements OnInit {
     zip: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private productsService: ProductsService) { }
+  constructor(private fb: FormBuilder, private productsService: ProductsService, private router: Router) { }
 
   ngOnInit(): void {
     this.productsService.getCart().subscribe(data => {
@@ -32,6 +33,9 @@ export class CheckoutComponent implements OnInit {
 
   doCheckout() {
     console.log(this.checkoutForm.value);
+    alert("Order placed successfully");
+    this.productsService.clearCart();
+    this.router.navigate(['/dashboard/products']);
   }
 
 }

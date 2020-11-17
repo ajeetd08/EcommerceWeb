@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,89 +10,17 @@ export class ProductsService {
   _cart = [];
   productsSub: BehaviorSubject<any[]>;
   cartSub: BehaviorSubject<any[]>;
-  constructor() {
+  constructor(private http: HttpClient) {
     this.productsSub = new BehaviorSubject<any[]>(this._products);
     this.cartSub = new BehaviorSubject<any[]>(this._cart);
   }
 
   fetchProducts() {
-    const items = [
-      {
-        id: 1,
-        name: 'Course name',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 12
-      },
-      {
-        id: 2,
-        name: 'Course name two',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 6
-      },
-      {
-        id: 3,
-        name: 'Course name three',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 13
-      },
-      {
-        id: 4,
-        name: 'Course name four',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 16
-      },
-      {
-        id: 5,
-        name: 'Course name five',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 121
-      },
-      {
-        id: 6,
-        name: 'Course name six',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 11
-      },
-      {
-        id: 7,
-        name: 'Course name seven',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 119
-      },
-      {
-        id: 8,
-        name: 'Course name eight',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 8
-      },
-      {
-        id: 9,
-        name: 'Course name nine',
-        description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Explicabo officia commodi quo impedit. Culpa molestiae perspiciatis architecto in dignissimos incidunt`,
-        image: 'http://placehold.it/355x225',
-        price: 99
-      },
-    ]; //end of items array
+    this.http.get<any[]>('/products').subscribe(data => {
+      this._products = [...data];
+      this.productsSub.next([...this._products]);
+    })
 
-    this._products = [...items];
-    this.productsSub.next([...this._products]);
   }
 
   getProducts() {
@@ -103,12 +32,12 @@ export class ProductsService {
   }
 
   findItemInCart(id) {
-    const item = this._cart.filter(product => product.id === id);
+    const item = this._cart.filter(product => product._id === id);
     return item;
   }
 
   findItemInProducts(id) {
-    const item = this._products.filter(product => product.id === id);
+    const item = this._products.filter(product => product._id === id);
     return item;
   }
 
@@ -130,6 +59,11 @@ export class ProductsService {
       const index = this._cart.indexOf(item);
       this._cart.splice(index, 1);
     }
+    this.cartSub.next([...this._cart]);
+  }
+
+  clearCart() {
+    this._cart = [];
     this.cartSub.next([...this._cart]);
   }
 

@@ -14,6 +14,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 
+
+
 @NgModule({
   declarations: [LayoutComponent, HomeComponent, ProductlistComponent, AppnavComponent, CartComponent, CheckoutComponent],
   imports: [
