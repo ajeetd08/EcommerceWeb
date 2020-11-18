@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  selector: 'app-adminlayout',
+  templateUrl: './adminlayout.component.html',
+  styleUrls: ['./adminlayout.component.css']
 })
-export class LayoutComponent implements OnInit {
+export class AdminlayoutComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
 
   logout() {
     console.log('clicked logout');
-    this.authService.logout();
+    this.authService.adminLogout();
 
   }
 

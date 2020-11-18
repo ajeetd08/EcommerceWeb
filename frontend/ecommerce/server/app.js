@@ -8,6 +8,7 @@ const authenticate = require('./authenticate');
 
 const User = require('./models/user');
 const Product = require('./models/product');
+const AdminUser = require('./models/adminuser');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -48,6 +49,30 @@ app.post('/login', bodyParser, (req, res) => {
     })
 })
 
+app.post('/adminlogin', bodyParser, (req, res) => {
+    console.log(req.body);
+    AdminUser.findOne({email: req.body.email}).then(rec => {
+        console.log(rec);
+        if(!rec) {
+            return res.status(401).json({message: 'Invalid username or password'})
+        }
+        console.log('About to test equality...');
+        if(rec.password != req.body.password) {
+            console.log('They are not equal')
+            return res.status(401).json({message: 'Invalid username or password'})
+        }
+
+        console.log('about to give response of login success....')
+        res.status(200).json(rec);
+        /*
+        const withTokem = {email: loginUser.email, _id: loginUser._id};
+        withTokem.token = loginUser.generateJWT();
+        res.status(200).json(withTokem)
+        */
+        
+    })
+})
+
 //TODO
 
 app.get('/seeddb', bodyParser, (req, res) => {
@@ -76,6 +101,18 @@ data.forEach((product) => {
     newProduct.save();
     })
     res.send("ok");
+})
+
+app.get('/seedadmin', bodyParser, (req, res) => {
+    const newAdminUser = new AdminUser({
+        name: "Admin User",
+        email: "admin@admin.com",
+        password: "admin"
+        });
+    //finished creating product schema
+    newAdminUser.save().then(rec => {
+        res.status(201).json(rec)
+    });
 })
 
 app.get('/products', bodyParser, (req, res) => {

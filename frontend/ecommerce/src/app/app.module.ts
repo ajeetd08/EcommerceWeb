@@ -12,6 +12,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { APP_ROUTES } from './app.routes';
 
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AdmindashboardModule } from './admindashboard/admindashboard.module';
+import { AdminloginComponent } from './adminlogin/adminlogin.component';
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
+    AdminloginComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +30,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     FormsModule,
     RouterModule.forRoot(APP_ROUTES),
     DashboardModule,
+    AdmindashboardModule,
     HttpClientModule
   ],
   providers: [],

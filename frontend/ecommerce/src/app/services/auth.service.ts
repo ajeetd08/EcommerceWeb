@@ -21,14 +21,29 @@ export class AuthService {
     //localStorage.setItem('user', user);
   }
 
+  adminLogin(user) {
+    localStorage.setItem('adminuser', user);
+  }
+
   logout() {
     localStorage.clear();
     this.ps.clearCart();
     this._router.navigate(['/login']);
   }
 
+  adminLogout() {
+    localStorage.clear();
+    this._router.navigate(['login']);
+
+  }
+
   isAuthenticated() {
     console.log(localStorage.getItem('user')); //TEST
     return localStorage.getItem('user');
+  }
+
+  isAdminAuthenticated() {
+    console.log(localStorage.getItem('adminuser'));
+    return localStorage.getItem('adminuser');
   }
 }
