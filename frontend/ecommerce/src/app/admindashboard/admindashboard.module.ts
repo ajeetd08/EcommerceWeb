@@ -4,7 +4,8 @@ import { AdminlayoutComponent } from './adminlayout/adminlayout.component';
 import { AdminhomeComponent } from './adminhome/adminhome.component';
 import { adminDashboardRoutes } from './admindashboard.routes';
 import { RouterModule } from '@angular/router';
-import { AdminAuthGuard } from '../guards/admin-auth.guard'
+import { AdminAuthGuard } from '../guards/admin-auth.guard';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,7 +13,9 @@ import { AdminAuthGuard } from '../guards/admin-auth.guard'
   declarations: [AdminlayoutComponent, AdminhomeComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(adminDashboardRoutes)
+    RouterModule.forChild(adminDashboardRoutes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AdminAuthGuard]
 })

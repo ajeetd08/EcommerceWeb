@@ -19,9 +19,11 @@ export class AdminloginComponent implements OnInit {
   }
 
   login(theUser: User) {
-    console.log(theUser);
-    localStorage.setItem('adminuser', JSON.stringify(theUser));
-    this._router.navigate(['/admindashboard']);
+    this.authService.adminLogin(theUser).subscribe(data => {
+      console.log(data);
+      localStorage.setItem('adminuser', JSON.stringify(data));
+      this._router.navigate(['/admindashboard']);
+    });
   }
 
 }

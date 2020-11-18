@@ -1,1 +1,37 @@
-<p>adminhome works!</p>
+<form class="needs-validation" novalidate="" [formGroup]="productForm" (ngSubmit)="doTransaction()">
+    <div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name">Product Name</label>
+        <input type="text" class="form-control" id="name" placeholder="" value="" required="" formControlName="name">
+        <div class="invalid-feedback">Valid product name is required.</div>
+      </div>
+    
+
+    
+      <div class="col-md-6 mb-3">
+        <label for="image">Image URL</label>
+        <input type="text" class="form-control" id="image" placeholder="" value="" required="" formControlName="image">
+        <div class="invalid-feedback">Valid image url is required.</div>
+      </div>
+    
+
+    
+    <div class="mb-3">
+        <label for="price">Price<span class="text-muted"></span></label>
+        <input type="number" class="form-control" id="price" placeholder="Price Here" formControlName="price">
+        <div class="invalid-feedback">Please enter a valid, nonnegative numerical price</div>
+    </div>
+    
+    
+    
+        <div class="mb-3">
+            <label for="description">Description<span class="text-muted"></span></label>
+            <input type="text" class="form-control" id="description" placeholder="Description Here" formControlName="description">
+            <div class="invalid-feedback">Please enter a valid, nonnegative numerical price</div>
+        </div>
+    </div>
+</div>
+    <hr class="mb-4">
+    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!productForm.valid">Place Order</button>
+</form>
