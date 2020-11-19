@@ -9,6 +9,7 @@ const authenticate = require('./authenticate');
 const User = require('./models/user');
 const Product = require('./models/product');
 const AdminUser = require('./models/adminuser');
+const { triggerAsyncId } = require("async_hooks");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -125,6 +126,35 @@ app.get('/products', bodyParser, (req, res) => {
     })
 })
 
+app.post('/producttransaction', bodyParser, (req, res) => {
+    const newProduct = new Product({
+        name: req.body.name,
+        image: req.body.image,
+        price: req.body.price,
+        description: req.body.description
+    })
+
+    const filter = {name: req.body.name};
+    const update = {image: req.body.image, price: req.body.price, description: req.body.description};
+    const options = {new: true, upsert: true};
+
+    Product.findOneAndUpdate(filter, update, options).then(rec =>{
+        console.log(rec);
+        res.status(201).json(rec);
+    });
+
+})
+
+app.post('/deleteproduct', bodyParser, (req, res) => {
+    const filter = {name: req.body.name};
+    Product.findOneAndDelete(filter).then(rec => {
+        console.log(rec);
+        if(rec == null) {
+           return res.status(401).json({message: "No such Entry Exists"})
+        }
+        res.status(201).json(rec);
+    })
+})
 
 
 

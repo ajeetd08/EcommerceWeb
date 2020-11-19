@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,15 @@ export class ProductsService {
   constructor(private http: HttpClient) {
     this.productsSub = new BehaviorSubject<any[]>(this._products);
     this.cartSub = new BehaviorSubject<any[]>(this._cart);
+  }
+
+
+  adminAddProduct(inputProduct: Product) {
+    return this.http.post('/producttransaction', inputProduct);
+  }
+
+  adminDeleteProduct(inputProduct: Product) {
+    return this.http.post('/deleteproduct', inputProduct)
   }
 
   fetchProducts() {
@@ -66,6 +76,8 @@ export class ProductsService {
     this._cart = [];
     this.cartSub.next([...this._cart]);
   }
+
+
 
 
 }

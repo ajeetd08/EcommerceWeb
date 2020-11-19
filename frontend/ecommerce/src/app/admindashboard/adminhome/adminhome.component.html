@@ -1,3 +1,4 @@
+<h3>Update/Insert entries below. If the entry name already exists the entry will be updated. If the entry name does not exist a new entry will be created.</h3>
 <form class="needs-validation" novalidate="" [formGroup]="productForm" (ngSubmit)="doTransaction()">
     <div class="container">
     <div class="row">
@@ -33,5 +34,48 @@
     </div>
 </div>
     <hr class="mb-4">
-    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!productForm.valid">Place Order</button>
+    <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!productForm.valid">Insert/Update Item</button>
 </form>
+
+
+<!--BELOW IS DELETE FORM-->
+<h1 style="background-color: purple;">DELETE ENTRY FORM BELOW, ONLY NEED TO  INPUT PRODUCT NAME</h1>
+<form style="background-color: purple;" class="needs-validation" novalidate="" [formGroup]="productDeleteForm" (ngSubmit)="deleteTransaction()">
+  <div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="name">Product Name</label>
+      <input type="text" class="form-control" id="deletename" placeholder="" value="" required="" formControlName="name">
+      <div class="invalid-feedback">Valid product name is required.</div>
+    </div>
+  
+
+  
+    <div hidden class="col-md-6 mb-3">
+      <label for="image">Image URL</label>
+      <input type="text" class="form-control" id="deleteimage" placeholder="" value="" formControlName="image" disabled>
+      <div class="invalid-feedback">Valid image url is required.</div>
+    </div>
+  
+
+  
+  <div hidden class="mb-3">
+      <label for="price">Price<span class="text-muted"></span></label>
+      <input type="number" class="form-control" id="deleteprice" placeholder="Price Here" formControlName="price" disabled>
+      <div class="invalid-feedback">Please enter a valid, nonnegative numerical price</div>
+  </div>
+  
+  
+  
+      <div hidden class="mb-3">
+          <label for="description">Description<span class="text-muted"></span></label>
+          <input type="text" class="form-control" id="deletedescription" placeholder="Description Here" formControlName="description" disabled>
+          <div class="invalid-feedback">Please enter a valid, nonnegative numerical price</div>
+      </div>
+  </div>
+</div>
+  <hr class="mb-4">
+  <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!productDeleteForm.valid">Delete Item</button>
+</form>
+
+
