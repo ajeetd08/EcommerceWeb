@@ -9,7 +9,7 @@ const authenticate = require('./authenticate');
 const User = require('./models/user');
 const Product = require('./models/product');
 const AdminUser = require('./models/adminuser');
-const { triggerAsyncId } = require("async_hooks");
+//const { triggerAsyncId } = require("async_hooks");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
